@@ -1,6 +1,6 @@
 def caesar_cipher(phrase, shift)
 	return "Invalid arguments" unless phrase.is_a?(String) && shift.is_a?(Integer)
-	return "Shift must be between 1-25" unless shift.between?(1, 25)
+	return "Shift must be between 1-25" unless shift.between?(-25, 25)
 
 cipher = []	
 phrase.each_char do |c|
