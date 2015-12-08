@@ -5,7 +5,12 @@ class SecretCode
     @code = Array.new
     @solved = false
     @results = []
-    generate_code
+  end
+
+  def choice
+    puts "Who selects the code? Type H for human or C for computer."
+    c = gets.chomp.upcase.chr
+    c=="C" ? generate_code : select_code
   end
 
   def compare(guess)
@@ -20,6 +25,11 @@ class SecretCode
     other_matches = inexact_matches - exact_matches
     @results = [exact_matches, other_matches]
     return @results
+  end
+
+  def select_code
+    puts "Input the secrete code. 4 letters A-F."
+    @code = gets.chomp.upcase.split(//)
   end
 
   def generate_code
@@ -42,8 +52,12 @@ class Game
   end
 
   def play
+    welcome
+    @secret.choice
     instructions
-    make_guesses until @game_over == true
+    while @game_over != true
+      make_guesses
+    end
   end
 
   def make_guesses
@@ -57,8 +71,8 @@ class Game
     guess = gets.chomp.upcase.split(//)
     results = @secret.compare(guess)
     @board[@turn+1] = {
-      "guess" => guess,
-      "results" => results
+      :guess => guess,
+      :results => results
     }
     @turn += 1
   end
@@ -68,18 +82,21 @@ class Game
       puts "CODE FOUND!!"
       puts "Congrats! You win! Game over."
       @game_over = true
-    elsif @turns == 12
-      puts "Out of turns"
+    elsif @turn == 12
+      puts "Out of turns. Game over."
       @game_over = true
     else
       @game_over = false
     end
   end
 
+  def welcome
+    puts "Welcome to Mastermind!"
+  end
+
   def instructions
-    puts "Welcom to Mastermind!"
     puts "For now, I've decided to create a four-letter code instead of colored pegs." 
-    puts "I have only use  the letters A, B, C, D, E & F. I may use the same letter more than once."
+    puts "I have only used the letters A, B, C, D, E & F. I may use the same letter more than once."
     puts "I will respond to each guess letting you know how closely your responses matches"
     puts "EXACT matches = right letter & position"
     puts "INEXACT matches = right letter, wrong position"
@@ -88,8 +105,7 @@ class Game
   
   def print_board
     puts "Current board:"
-    puts "\#: Guess, [Exact, Inexact]"
-    @board.each {|k,v| puts "#{k}: #{v}"}
+    @board.each {|k,v| puts "Turn #{k}. Guess: #{v[:guess].join(", ")} | Exact matches #{v[:results][0]} | Other matches: #{v[:results][1]}"}
     puts " "
   end
 end
