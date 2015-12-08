@@ -20,3 +20,4 @@ Assignments can be found on [the Odin Project website](http://www.theodinproject
 
 Solutions:
 * Tic Tac Toe - tictactoe3.rb (the "3" indicating that I had a few false starts on this first OOP assignment.)
+* Mastermind - mastermind.rb  - Notes: No AI - may circle back later to add that. Allows for either human or computer-created secret code. Also validates all code/guess entries.

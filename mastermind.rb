@@ -1,4 +1,25 @@
+module Mastermind
+
+  def validate_code(code)
+    good_range = 0
+    if code.length == 4
+      code.each { |n| good_range += 1 if n.between?("A","F") }
+      if good_range != 4
+        puts "You can only use the letters A through F."
+        return false
+      else
+        return true
+      end
+    else
+      puts "Codes must be exactly 4 charaters"
+      return false
+    end
+  end
+  
+end
+
 class SecretCode
+  include Mastermind
   attr_reader :solved, :results
 
   def initialize
@@ -8,8 +29,11 @@ class SecretCode
   end
 
   def choice
-    puts "Who selects the code? Type H for human or C for computer."
-    c = gets.chomp.upcase.chr
+    c = nil
+    until c == "C" || c == "H"
+      puts "Who selects the code? Type H for human or C for computer."
+      c = gets.chomp.upcase.chr
+    end
     c=="C" ? generate_code : select_code
   end
 
@@ -27,9 +51,12 @@ class SecretCode
     return @results
   end
 
+  private
   def select_code
-    puts "Input the secrete code. 4 letters A-F."
-    @code = gets.chomp.upcase.split(//)
+    until validate_code(@code) == true
+      puts "Input the secret code of your choice. It must be 4 letters. Use only letters A-F."
+      @code = gets.chomp.upcase.split(//)
+    end
   end
 
   def generate_code
@@ -39,9 +66,12 @@ class SecretCode
       @code << peg.chr
     end
   end
+
+ 
 end
 
 class Game
+  include Mastermind
   attr_reader :turn, :solved, :secret
 
   def initialize
@@ -67,8 +97,11 @@ class Game
   end
 
   def guess
-    puts "What's your next guess?"
-    guess = gets.chomp.upcase.split(//)
+    guess = []
+    until validate_code(guess) == true
+      puts "What's your next guess?"
+      guess = gets.chomp.upcase.split(//)
+    end
     results = @secret.compare(guess)
     @board[@turn+1] = {
       :guess => guess,
