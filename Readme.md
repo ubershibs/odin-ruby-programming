@@ -24,3 +24,4 @@ Solutions:
 
 ##Files/Serialization
 * Text analyzer - analyzer.rb - built from tutorial in Ch 4 of Beginning Ruby. Oliver.txt is the sample used for analysis.
+* Event manager - in /event_manager, run 'rub lib/event_manager.rb' - JumpsStart Lab tutorial (including optional iterations), which can be found [here](http://tutorials.jumpstartlab.com/projects/eventmanager.html#iteration:-time-targeting)
