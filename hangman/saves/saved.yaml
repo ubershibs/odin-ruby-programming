@@ -1,0 +1,33 @@
+--- !ruby/object:Game
+secret_word:
+- i
+- m
+- m
+- a
+- t
+- u
+- r
+- i
+- t
+- y
+game_board:
+- i
+- m
+- m
+- a
+- _
+- _
+- _
+- i
+- _
+- _
+empty_spaces: 5
+misses_left: 2
+misses:
+- e
+- o
+- n
+- p
+- c
+- _
+- _
