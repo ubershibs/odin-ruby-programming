@@ -26,3 +26,6 @@ Solutions:
 * Text analyzer - analyzer.rb - built from tutorial in Ch 4 of Beginning Ruby. Oliver.txt is the sample used for analysis.
 * Event manager - in /event_manager, run 'rub lib/event_manager.rb' - JumpsStart Lab tutorial (including optional iterations), which can be found [here](http://tutorials.jumpstartlab.com/projects/eventmanager.html#iteration:-time-targeting)
 * Hangman - hangman/hangman.rb - assignment requirements are on [the Odin Project's site](http://www.theodinproject.com/ruby-programming/oop?ref=lc-pb)
+
+##Ruby on the Web
+* Twitter client - micro_blogger/micro_blogger.rb - from the Jumpstart Tutorial [here](http://tutorials.jumpstartlab.com/projects/microblogger.html#iteration-4:-last-tweet-from-all-friends)
