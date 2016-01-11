@@ -29,7 +29,10 @@ Solutions:
 
 ##Ruby on the Web
 * Twitter client - micro_blogger/micro_blogger.rb - from the Jumpstart Tutorial [here](http://tutorials.jumpstartlab.com/projects/microblogger.html#iteration-4:-last-tweet-from-all-friends)
-* Web server - run webserver.rb and browser.rb - from [the Odin Project] (http://www.theodinproject.com/ruby-programming/ruby-on-the-web)
+* Web server - run webserver.rb and browser.rb - from [the Odin Project](http://www.theodinproject.com/ruby-programming/ruby-on-the-web)
 
 ##A little bit of CS
-* Fibonacci /cs/fib.rb
+###Recursion
+From [the Odin Project](http://www.theodinproject.com/ruby-programming/recursion)
+* Fibonacci - /cs/fib.rb
+* Merge sort - /cs/mergesort.rb
