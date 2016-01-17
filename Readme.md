@@ -36,3 +36,7 @@ Solutions:
 From [the Odin Project](http://www.theodinproject.com/ruby-programming/recursion)
 * Fibonacci - /cs/fib.rb
 * Merge sort - /cs/mergesort.rb
+
+###Data Structures & Algorithms
+From [the Odin Project](http://www.theodinproject.com/ruby-programming/data-structures-and-algorithms)
+- P1 - Binary Search Trees - algorithms/binary_search.rb
