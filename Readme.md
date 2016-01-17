@@ -39,4 +39,5 @@ From [the Odin Project](http://www.theodinproject.com/ruby-programming/recursion
 
 ###Data Structures & Algorithms
 From [the Odin Project](http://www.theodinproject.com/ruby-programming/data-structures-and-algorithms)
-- P1 - Binary Search Trees - algorithms/binary_search.rb
+- Binary Search Trees - algorithms/binary_search.rb
+- Knight Moves - algorithms/knight_moves.rb
