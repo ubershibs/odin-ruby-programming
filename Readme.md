@@ -41,3 +41,8 @@ From [the Odin Project](http://www.theodinproject.com/ruby-programming/recursion
 From [the Odin Project](http://www.theodinproject.com/ruby-programming/data-structures-and-algorithms)
 - Binary Search Trees - algorithms/binary_search.rb
 - Knight Moves - algorithms/knight_moves.rb
+
+##Testing Ruby with RSpec
+From [the Odin Project](http://www.theodinproject.com/ruby-programming/testing-ruby)
+- Warm-up - /rspec_project
+- Connect4 - /connect4
