@@ -4,12 +4,13 @@
 
   CONVERSIONS = ["NA", "A", "B", "C", "D", "E", "F", "G", "H"]
 
-  attr_reader :grid
+  attr_reader :grid, :last_move
 
   def initialize
     @grid = Hash.new
     @white_king_location = ""
     @black_king_location = ""
+    @last_move = Array.new
     setup
   end
 
@@ -86,11 +87,16 @@
         return true
       end
     end
+    if piece.type == "pawn" && start[0] != dest[0] && @grid[dest].nil?
+      en_passant(start, dest, piece)
+      return true
+    end
     if complete_move(start, dest, piece)
       return true
     else
       return false
     end
+    @last_move = [start,dest,piece]
   end
 
   def king_locator(player)
@@ -185,6 +191,18 @@
     return true
   end
   
+  def en_passant(start, dest, piece)
+    if piece.color == "white"
+      capture = "#{dest[0]}#{dest[1]-1}"
+    elsif piece.color == "black"
+      capture = "#{dest[0]}#{dest[1]+1}"
+    end
+    @grid[capture] = nil
+    puts "#{piece.color.capitalize} captures #{grid[capture].color} pawn at #{capture} en passant while moving to #{dest}."
+    @grid[dest] = piece
+    @grid[start] = nil
+  end
+
   def promote(square, piece)
     color = piece.color
     puts "Congratulations: Your pawn can be promoted. What piece would you like to promote it to?
@@ -355,6 +373,7 @@
     pawn_first_move(piece, x, y, j)
     pawn_capture(piece, x, y, -1, j)
     pawn_capture(piece, x, y, 1, j)
+    en_passant(piece, x, y)
   end
 
   def pawn_base_case(piece, x, y, j)
@@ -393,6 +412,25 @@
     unless square.nil?
       if square.color != piece.color
         piece.possible_moves << key
+      end
+    end
+  end
+
+  def en_passant(piece, x, y)
+    return false if @last_move.nil? || @last_move == []
+    last_start, last_dest, last_piece = @last_move
+    if last_piece.type == "pawn" && last_dest[1] == ("4"||"5") && last_start[1] == ("2"||"7") 
+      x_opp, y_opp = get_coordinates(last_dest)
+      if (x == x_opp + 1 || x == x_opp - 1) && y == y_opp
+        if piece.color == "white"
+          y_new = y + 1
+          key = get_key(x_opp, y_new)
+          piece.possible_moves << key
+        elsif piece.color == "black"
+          y_new = y - 1
+          key = get_key(x_opp, y_new)
+          piece.possible_moves << key
+        end
       end
     end
   end
