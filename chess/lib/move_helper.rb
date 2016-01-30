@@ -102,7 +102,7 @@ module MoveHelper
   end
 
   def calc_moves_pawn(piece, x, y)
-    piece.possible_moves = Array.new
+    piece.possible_moves = []
     if piece.color == "white"
       j = 1
     elsif piece.color == "black"
