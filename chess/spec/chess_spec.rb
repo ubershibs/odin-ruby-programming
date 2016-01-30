@@ -2,6 +2,7 @@
 require 'chess'
 require 'board'
 require 'piece'
+require 'move_helper'
 
 describe Chess do
 
