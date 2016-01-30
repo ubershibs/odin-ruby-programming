@@ -36,7 +36,7 @@ class Knight
     end
   end
 
-   def calculate_route(start, finish)
+  def calculate_route(start, finish)
     while @queue.empty? == false
       current_node = @queue.shift
       if current_node.location == start 
