@@ -46,3 +46,7 @@ From [the Odin Project](http://www.theodinproject.com/ruby-programming/data-stru
 From [the Odin Project](http://www.theodinproject.com/ruby-programming/testing-ruby)
 - Warm-up - /rspec_project
 - Connect4 - /connect4
+
+##Final Project
+###Two-player Chess
+The final project for [the Odin Project](http://www.theodinproject.com/ruby-programming/ruby-final-project)'s Ruby Course. Currently, this is feature complete and my tests are passing, but I've still got quite a bit more manual testing and cleanup to do. You can play by running "chess/main.rb"
