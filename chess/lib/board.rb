@@ -67,10 +67,6 @@ class Board
     @black_king_location = "E8"
   end
 
-  def clear_grid
-    @grid.each_value {|v| v = nil}
-  end
-
   def check_move(move, player)
     start, dest = move
     if @grid[start].nil?
