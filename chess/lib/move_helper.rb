@@ -1,8 +1,8 @@
 module MoveHelper
 
-CONVERSIONS = ["NA", "A", "B", "C", "D", "E", "F", "G", "H"]
+  CONVERSIONS = ["NA", "A", "B", "C", "D", "E", "F", "G", "H"]
 
-def get_coordinates(square)
+  def get_coordinates(square)
     x,y = square.split("")
     x = CONVERSIONS.index(x)
     y = y.to_i
@@ -102,6 +102,7 @@ def get_coordinates(square)
   end
 
   def calc_moves_pawn(piece, x, y)
+    piece.possible_moves = Array.new
     if piece.color == "white"
       j = 1
     elsif piece.color == "black"
@@ -201,7 +202,7 @@ def get_coordinates(square)
     end
   end
 
-   def castle_right(key,color)
+  def castle_right(key,color)
     rook = @grid[key]
     if rook.moved == false
       ary = ["F#{key[1]}","G#{key[1]}"]

@@ -1,6 +1,6 @@
 # lib/board.rbclass Board
 
-require "move_helper"
+require_relative   "move_helper"
 
 class Board
 
@@ -67,10 +67,18 @@ class Board
     @black_king_location = "E8"
   end
 
+  def clear_grid
+    @grid.each_value {|v| v = nil}
+  end
+
   def check_move(move, player)
     start, dest = move
-    piece = @grid[start] 
+    if @grid[start].nil?
+      puts "You cannot start from an empty square"
+      return false
+    end
 
+    piece = @grid[start] 
     if piece.color != player
       puts "You must select one of your own pieces, #{player.downcase}"
       return false
@@ -167,7 +175,7 @@ class Board
     dest_occupant = @grid[dest]
     @grid[dest] = piece
     @grid[start] = nil
-    king_loc = piece.type == "king" ? @grid[dest] : king_locator(piece.color)
+    king_loc = piece.type == "king" ? dest : king_locator(piece.color)
     if in_check?(piece.color, king_loc) == true
       puts "You can't end a turn in check. Please select a new move."
       @grid[start] = piece

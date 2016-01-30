@@ -80,10 +80,53 @@ board: !ruby/object:Board
       - A4
       - A3
       - A4
+      - A3
+      - A4
+      - A3
+      - A4
+      - A3
+      - A4
+      - A3
+      - A4
+      - A3
+      - A4
+      - A3
+      - A4
+      - A3
+      - A4
+      - A3
+      - A4
+      - A3
+      - A4
+      - A3
+      - A4
+      - A3
+      - A4
+      - A3
+      - A4
+      - A3
+      - A4
+      - A3
+      - A4
+      - A3
+      - A4
+      - A3
+      - A4
+      - A3
+      - A4
+      - A3
+      - A4
+      - A3
+      - A4
+      - A3
+      - A4
+      - A3
+      - A4
       symbol: p
     A3: 
     A4: 
-    A5: !ruby/object:Piece
+    A5: 
+    A6: &1 !ruby/object:Piece
       type: pawn
       color: black
       moved: true
@@ -123,16 +166,35 @@ board: !ruby/object:Board
       - A4
       - A4
       - A4
+      - A4
+      - A4
+      - A4
+      - A4
+      - A4
+      - A4
+      - A4
+      - A4
+      - A4
+      - A4
+      - A4
+      - A4
+      - A4
+      - A4
+      - A4
+      - A4
+      - A4
+      - A4
+      - A4
+      - A5
       symbol: P
-    A6: 
     A7: 
     A8: !ruby/object:Piece
       type: rook
       color: black
       moved: false
       possible_moves:
+      - B8
       - A7
-      - A6
       symbol: R
     B1: !ruby/object:Piece
       type: knight
@@ -148,6 +210,48 @@ board: !ruby/object:Board
       color: white
       moved: false
       possible_moves:
+      - B3
+      - B4
+      - B3
+      - B4
+      - B3
+      - B4
+      - B3
+      - B4
+      - B3
+      - B4
+      - B3
+      - B4
+      - B3
+      - B4
+      - B3
+      - B4
+      - B3
+      - B4
+      - B3
+      - B4
+      - B3
+      - B4
+      - B3
+      - B4
+      - B3
+      - B4
+      - B3
+      - B4
+      - B3
+      - B4
+      - B3
+      - B4
+      - B3
+      - B4
+      - B3
+      - B4
+      - B3
+      - B4
+      - B3
+      - B4
+      - B3
+      - B4
       - B3
       - B4
       - B3
@@ -284,15 +388,46 @@ board: !ruby/object:Board
       - B5
       - B6
       - B5
+      - B6
+      - B5
+      - B6
+      - B5
+      - B6
+      - B5
+      - B6
+      - B5
+      - B6
+      - B5
+      - B6
+      - B5
+      - B6
+      - B5
+      - B6
+      - B5
+      - B6
+      - B5
+      - B6
+      - B5
+      - B6
+      - B5
+      - B6
+      - B5
+      - B6
+      - B5
+      - B6
+      - B5
+      - B6
+      - B5
+      - B6
+      - B5
+      - B6
+      - B5
+      - B6
+      - B5
+      - B6
+      - B5
       symbol: P
-    B8: !ruby/object:Piece
-      type: knight
-      color: black
-      moved: false
-      possible_moves:
-      - C6
-      - A6
-      symbol: N
+    B8: 
     C1: 
     C2: !ruby/object:Piece
       type: pawn
@@ -362,23 +497,43 @@ board: !ruby/object:Board
       - C3
       - C3
       - C3
+      - C3
+      - C3
+      - C3
+      - C3
+      - C3
+      - C3
+      - C3
+      - C3
+      - C3
+      - C4
+      - C3
+      - C4
+      - C3
+      - C4
+      - C3
+      - C4
+      - C3
+      - C4
+      - C3
+      - C4
+      - C3
+      - C4
+      - C3
+      - C4
+      - C3
+      - C4
+      - C3
+      - C4
+      - C3
+      - C4
+      - C3
+      - C4
+      - C3
+      - C4
       symbol: p
     C3: 
-    C4: &1 !ruby/object:Piece
-      type: bishop
-      color: white
-      moved: true
-      possible_moves:
-      - D5
-      - E6
-      - F7
-      - B3
-      - D3
-      - E2
-      - F1
-      - B5
-      - A6
-      symbol: b
+    C4: 
     C5: !ruby/object:Piece
       type: pawn
       color: black
@@ -437,8 +592,31 @@ board: !ruby/object:Board
       - C6
       - C5
       - C4
+      - C4
+      - C4
+      - C4
+      - C4
+      - C4
+      - C4
+      - C4
+      - C4
+      - C4
+      - C4
+      - C4
       symbol: P
-    C6: 
+    C6: !ruby/object:Piece
+      type: knight
+      color: black
+      moved: true
+      possible_moves:
+      - E7
+      - E5
+      - A7
+      - A5
+      - D4
+      - B8
+      - B4
+      symbol: N
     C7: 
     C8: !ruby/object:Piece
       type: bishop
@@ -446,28 +624,36 @@ board: !ruby/object:Board
       moved: false
       possible_moves: []
       symbol: B
-    D1: !ruby/object:Piece
-      type: queen
-      color: white
-      moved: false
-      possible_moves:
-      - E2
-      - F3
-      - G4
-      - H5
-      - C1
-      - D2
-      - D3
-      - D4
-      - D5
-      - D6
-      - D7
-      symbol: q
+    D1: 
     D2: 
     D3: 
     D4: 
     D5: 
-    D6: 
+    D6: !ruby/object:Piece
+      type: queen
+      color: white
+      moved: true
+      possible_moves:
+      - E7
+      - F8
+      - C5
+      - E5
+      - F4
+      - G3
+      - C7
+      - B8
+      - E6
+      - F6
+      - G6
+      - H6
+      - C6
+      - D7
+      - D5
+      - D4
+      - D3
+      - D2
+      - D1
+      symbol: q
     D7: !ruby/object:Piece
       type: pawn
       color: black
@@ -532,6 +718,14 @@ board: !ruby/object:Board
       - D5
       - D6
       - D5
+      - D6
+      - D5
+      - D6
+      - D5
+      - D6
+      - D5
+      - D6
+      - D5
       symbol: P
     D8: !ruby/object:Piece
       type: queen
@@ -540,23 +734,14 @@ board: !ruby/object:Board
       possible_moves:
       - C7
       - B6
+      - A5
       - E7
       - F6
       - G5
       - H4
       - E8
       symbol: Q
-    E1: !ruby/object:Piece
-      type: king
-      color: white
-      moved: false
-      possible_moves:
-      - F1
-      - E2
-      - D2
-      - C1
-      - G1
-      symbol: k
+    E1: 
     E2: 
     E3: 
     E4: !ruby/object:Piece
@@ -625,12 +810,41 @@ board: !ruby/object:Board
       - E5
       - E5
       - E5
+      - E5
+      - E5
+      - E5
+      - E5
+      - E5
+      - E5
+      - E5
+      - E5
+      - E5
+      - E5
+      - E5
+      - E5
+      - E5
+      - E5
+      - E5
+      - E5
+      - E5
+      - E5
+      - E5
+      - E5
+      - E5
       symbol: p
     E5: 
     E6: 
     E7: 
     E8: 
-    F1: 
+    F1: !ruby/object:Piece
+      type: rook
+      color: white
+      moved: true
+      possible_moves:
+      - E1
+      - D1
+      - C1
+      symbol: r
     F2: !ruby/object:Piece
       type: pawn
       color: white
@@ -704,8 +918,43 @@ board: !ruby/object:Board
       - F4
       - F3
       - F4
+      - F3
+      - F4
+      - F3
+      - F4
+      - F3
+      - F4
+      - F3
+      - F4
+      - F3
+      - F4
+      - F3
+      - F4
+      - F3
+      - F4
+      - F3
+      - F4
+      - F3
+      - F4
+      - F3
+      - F4
+      - F3
+      - F4
+      - F3
+      - F4
       symbol: p
-    F3: 
+    F3: !ruby/object:Piece
+      type: knight
+      color: white
+      moved: true
+      possible_moves:
+      - H4
+      - D4
+      - D2
+      - G5
+      - E5
+      - E1
+      symbol: n
     F4: 
     F5: 
     F6: 
@@ -732,19 +981,59 @@ board: !ruby/object:Board
       - G7
       symbol: B
     G1: !ruby/object:Piece
-      type: knight
+      type: king
       color: white
-      moved: false
+      moved: true
       possible_moves:
-      - E2
-      - H3
-      - F3
-      symbol: n
+      - H1
+      symbol: k
     G2: !ruby/object:Piece
       type: pawn
       color: white
       moved: false
       possible_moves:
+      - G3
+      - G4
+      - G3
+      - G4
+      - G3
+      - G4
+      - G3
+      - G4
+      - G3
+      - G4
+      - G3
+      - G4
+      - G3
+      - G4
+      - G3
+      - G4
+      - G3
+      - G4
+      - G3
+      - G4
+      - G3
+      - G4
+      - G3
+      - G4
+      - G3
+      - G4
+      - G3
+      - G4
+      - G3
+      - G4
+      - G3
+      - G4
+      - G3
+      - G4
+      - G3
+      - G4
+      - G3
+      - G4
+      - G3
+      - G4
+      - G3
+      - G4
       - G3
       - G4
       - G3
@@ -820,17 +1109,54 @@ board: !ruby/object:Board
     G6: 
     G7: 
     G8: 
-    H1: !ruby/object:Piece
-      type: rook
-      color: white
-      moved: false
-      possible_moves: []
-      symbol: r
+    H1: 
     H2: !ruby/object:Piece
       type: pawn
       color: white
       moved: false
       possible_moves:
+      - H3
+      - H4
+      - H3
+      - H4
+      - H3
+      - H4
+      - H3
+      - H4
+      - H3
+      - H4
+      - H3
+      - H4
+      - H3
+      - H4
+      - H3
+      - H4
+      - H3
+      - H4
+      - H3
+      - H4
+      - H3
+      - H4
+      - H3
+      - H4
+      - H3
+      - H4
+      - H3
+      - H4
+      - H3
+      - H4
+      - H3
+      - H4
+      - H3
+      - H4
+      - H3
+      - H4
+      - H3
+      - H4
+      - H3
+      - H4
+      - H3
+      - H4
       - H3
       - H4
       - H3
@@ -960,6 +1286,25 @@ board: !ruby/object:Board
       - H5
       - H5
       - H5
+      - H5
+      - H5
+      - H5
+      - H5
+      - H5
+      - H5
+      - H5
+      - H5
+      - H5
+      - H5
+      - H5
+      - H5
+      - H5
+      - H5
+      - H5
+      - H5
+      - H5
+      - H5
+      - H5
       symbol: P
     H7: !ruby/object:Piece
       type: pawn
@@ -1003,7 +1348,7 @@ board: !ruby/object:Board
   white_king_location: E1
   black_king_location: F7
   last_move:
-  - F1
-  - C4
+  - A5
+  - A6
   - *1
-turn: 14
+turn: 23
