@@ -1,5 +1,7 @@
 require "./lib/chess"
-require 'yaml'
+require "./lib/board"
+require "./lib/piece"
+require "yaml"
 
 def load
   if File.exists?("saves/saved.yaml")

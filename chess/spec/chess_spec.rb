@@ -107,8 +107,8 @@ describe Board do
   describe "#in_check?" do
     it "returns true if king is in jeopardy" do
       board.grid["E7"] = Piece.new("queen","white")
-      expect(board.in_check?("black")).to be true
-      expect(board.in_check?("white")).to be false
+      expect(board.in_check?("black","E8")).to be true
+      expect(board.in_check?("white","E1")).to be false
     end
   end
 
