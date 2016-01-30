@@ -175,7 +175,39 @@
       @white_king_location = dest if piece.color == "white"
       @black_king_location = dest if piece.color == "black"
     end
+    if piece.type == "pawn"
+      if piece.color == "white" && dest[1] == "8"
+        promote(dest, piece)
+      elsif piece.color === "black" && dest[1] == "1"
+        promote(dest, piece)
+      end
+    end
     return true
+  end
+  
+  def promote(square, piece)
+    color = piece.color
+    puts "Congratulations: Your pawn can be promoted. What piece would you like to promote it to?
+    Type Q for Queen, N for Knight, B for Bishop, or R for Rook."
+    input = ""
+    loop do
+      input = gets.chomp.upcase
+      break if ["Q", "N", "K", "R"].include?(input)
+      puts "Please type Q, N, K, or R"
+    end
+    piece = 
+    case input
+    when "Q"
+      Piece.new("queen",color)
+    when "N"
+      Piece.new("knight",color)
+    when "B" 
+      Piece.new("bishop",color)
+    when "R"
+      Piece.new("rook",color)
+    end
+    @grid[square] = piece
+    puts "Your pawn has been upgraded to a #{piece.type} on #{square}."
   end
 
   def complete_castle_left(player)

@@ -1,5 +1,7 @@
 # spec/chess_spec.rb 
 require 'chess'
+require 'board'
+require 'piece'
 
 describe Chess do
 
@@ -112,6 +114,14 @@ describe Board do
     end
   end
 
+  describe "#promote" do 
+    it "turns a pawn into a piece selected by user" do
+      piece = Piece.new("pawn","white")
+      allow(board).to receive(:gets).and_return("Q")
+      board.promote("D8", piece)
+      expect(board.grid["D8"]).to have_attributes(:type=>"queen")
+    end
+  end
 end
 
 describe Piece do
