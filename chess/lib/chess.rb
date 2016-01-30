@@ -1,5 +1,7 @@
 # lib/chess.rb 
 
+require 'yaml'
+
 class Chess
 
   attr_reader :board, :turn
@@ -7,6 +9,15 @@ class Chess
   def initialize
     @board = Board.new
     @turn = 1
+  end
+
+  def save
+    Dir.mkdir("saves") unless Dir.exists? ("saves")
+    File.open("saves/saved.yaml", "w") do |file|
+      file.write(YAML::dump(self))
+    end
+    puts "Game saved for later! Come back soon!"
+    exit
   end
 
   def input
@@ -23,8 +34,10 @@ class Chess
   def input_valid?(input)
     if input =~ /[A-H][1-8]\s[A-H][1-8]/
       return true
+    elsif input == "SAVE"
+      save
     else
-      puts "Valid moves look like this: A8 H1. Try again."
+      puts "Valid moves look like this: A8 H1. To save your game, type SAVE. Try again."
       return false
     end
   end
@@ -42,6 +55,10 @@ class Chess
   def turn
     moved = false
     until moved == true
+      @board.print
+      if @board.in_check?(curr_player) 
+        puts "You are in check. You move resolve the check to complete your turn."
+      end
       move = input
       move_ary = parse_move(move)
       moved = @board.check_move(move_ary, curr_player)
@@ -51,7 +68,17 @@ class Chess
 
   def play
     loop do
+      break if @board.checkmate?(curr_player) == true
+      break if @board.stalemate?(curr_player) == true
       turn
+    end
+    if @board.checkmate?(curr_player)
+      other player = curr_player == "white" ? "black" : "white"
+      "Checkmate on #{curr_player}. #{other_player.capitalize} wins!"
+      exit
+    elsif @board.stalemate?(currplayer)
+      "Stalemate! #{curr_player} has no legal moves"
+      exit
     end
   end
 end
@@ -64,6 +91,8 @@ class Board
 
   def initialize
     @grid = Hash.new
+    @white_king_location = ""
+    @black_king_location = ""
     setup
   end
 
@@ -82,6 +111,8 @@ class Board
           Piece.new("bishop","white")
         elsif key == "D1"
           Piece.new("queen","white")
+        elsif key == "E1"
+          Piece.new("king","white")
         elsif key == "F1"
           Piece.new("bishop","white")
         elsif key == "G1"
@@ -96,6 +127,8 @@ class Board
           Piece.new("bishop","black")
         elsif key == "D8"
           Piece.new("queen","black")
+        elsif key == "E8"
+          Piece.new("king","black")
         elsif key == "F8"
           Piece.new("bishop","black")
         elsif key == "G8"
@@ -110,6 +143,8 @@ class Board
         @grid[key] = piece
       end
     end
+    @white_king_location = "E1"
+    @black_king_location = "E8"
   end
 
   def check_move(move, player)
@@ -125,22 +160,90 @@ class Board
       puts "Your move is not legal. Please enter another move."
       return false
     end
-    complete_move(start, dest, piece)
-    return true
+    if complete_move(start, dest, piece)
+      return true
+    else
+      return false
+    end
+  end
+
+  def in_check?(player)
+    king_loc = player == "white" ? @white_king_location : @black_king_location
+    threat = Array.new
+    pieces = @grid.select {|k,v| v.nil? == false}
+    pieces.each do |k,v|
+      if v.color !=  player
+        x,y = get_coordinates(k)
+        calc_moves(v, x, y)
+        if v.possible_moves.include?(king_loc)
+          threat << v
+        end
+      end
+    end
+    if threat.empty?
+      return false
+    else
+      return true
+    end
+  end
+
+  def no_valid_move(player)
+    pieces = @grid.select {|k,v| v.nil? == false}
+    can_move = Array.new
+    pieces.each do |k,v|
+      if v.color == player
+        x,y = get_coordinates(k)
+        calc_moves(v, x, y)
+        if v.possible_moves.empty? == false
+          can_move << v
+        end
+      end
+    end
+    if can_move.empty?
+      return true
+    else
+      return false
+    end
+  end
+
+  def checkmate?(player)
+    if no_valid_move(player) && in_check?(player)
+      true
+    else
+      false
+    end
+  end
+
+  def stalemate?(player)
+    if no_valid_move(player)==true && in_check?(player)==false
+      true
+    else
+      false
+    end
   end
 
   def complete_move(start, dest, piece)
     dest_occupant = @grid[dest]
+    @grid[dest] = piece
+    @grid[start] = nil
+    if in_check?(piece.color) == true
+      puts "You can't end a turn in check. Please select a new move."
+      @grid[start] = piece
+      @grid[dest] = dest_occupant
+      return false
+    end
     unless dest_occupant.nil?
       if dest_occupant.color != piece.color
         puts "#{dest_occupant.color.capitalize} #{dest_occupant.type} captured! "
         dest_occupant.moved = "CAPTURED"
       end
     end
-    @grid[dest] = piece
     puts "#{piece.color.capitalize} #{piece.type} moved to #{dest}."
     piece.moved = true
-    @grid[start] = nil
+    if piece.type == "king"
+      @white_king_location = dest if piece.color == "white"
+      @black_king_location = dest if piece.color == "black"
+    end
     return true
   end
 
@@ -167,6 +270,12 @@ class Board
       calc_moves_queen(piece, x, y)
     elsif piece.type == "pawn"
       calc_moves_pawn(piece, x, y)
+    elsif piece.type == "king"
+      calc_moves_king(piece, x, y)
+    elsif piece.type == "knight"
+      calc_moves_knight(piece, x, y)
+    else
+      return false
     end
   end
 
@@ -194,6 +303,34 @@ class Board
 
   def get_line_moves(piece, start_x, start_y, inc_x, inc_y)
     line_moves(piece, start_x, start_y, inc_x, inc_y, 1) +  line_moves(piece, start_x, start_y, inc_x, inc_y, -1)
+  end
+
+  def calc_moves_king(piece, x, y)
+    directions = [[1,0], [-1,0], [0,1], [0,-1], [1,1], [1,-1], [-1,1], [-1,-1]]
+    piece.possible_moves = calc_moves_with_directions(piece, x, y, directions)
+  end
+
+  def calc_moves_knight(piece, x, y)
+    directions = [[2,1], [2,-1], [-2,1], [-2,-1], [1,2], [1,-2], [-1,2], [-1,-2]]
+    piece.possible_moves = calc_moves_with_directions(piece, x, y, directions)
+  end
+
+  def calc_moves_with_directions(piece, x, y, directions)
+    moves = Array.new
+    directions.each do |dir|
+      new_x = x + dir[0]
+      new_y = y + dir[1]
+      if new_x.between?(1,8) && new_y.between?(1,8)
+        key = get_key(new_x, new_y)
+        square = @grid[key]
+        if square.nil?
+          moves << key
+        elsif square.color != piece.color
+          moves << key
+        end
+      end
+    end
+    moves
   end
 
   def calc_moves_rook(piece, x, y)
@@ -260,12 +397,36 @@ class Board
     end
   end
 
+  def print
+    hor_line = "  +---+---+---+---+---+---+---+---+"
+    display = Array.new
+    display << "    A   B   C   D   E   F   G   H"
+    display << hor_line
+    ("1".."8").each do |row|
+      row_print = Array.new
+      row_print << "#{row} |"
+      ("A".."H").each do |col|
+        key = col + row
+        if @grid[key].nil?
+          row_print << "   |"
+        else
+          row_print << " #{grid[key].symbol} |"
+        end
+      end
+      display << row_print.join("")
+      display << hor_line
+    end
+    display = display.reverse
+    display.each do |line|
+      puts line
+    end
+  end
 
 end
 
 class Piece
 
-  attr_reader :type, :color
+  attr_reader :type, :color, :symbol
   attr_accessor :possible_moves, :moved
 
   def initialize(type, color)
@@ -273,9 +434,16 @@ class Piece
     @color = color
     @moved = false
     @possible_moves = Array.new
+    @symbol = set_symbol
+  end
+
+  def set_symbol
+    symbols = {"rook"=>"r", "knight"=>"n", "bishop"=>"b", "queen"=>"q", "king"=>"k", "pawn"=>"p"}
+    if @color == "white"
+      @symbol = symbols[@type].downcase
+    elsif @color == "black"
+      @symbol = symbols[@type].upcase
+    end
   end
 
 end
-
-game = Chess.new
-game.play

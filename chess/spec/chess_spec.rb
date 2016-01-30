@@ -74,7 +74,13 @@ describe Board do
     it "returns an array of valid moves" do
       piece = Piece.new("pawn","white")
       board.calc_moves(piece, 1, 2)
-      expect(piece8).to have_attributes(:possible_moves=>["A3", "A4"])
+      expect(piece).to have_attributes(:possible_moves=>["A3", "A4"])
+    end
+
+    it "works for pieces that can jump as well" do
+      piece = Piece.new("knight","white") 
+      board.calc_moves(piece, 2, 1)
+      expect(piece).to have_attributes(:possible_moves=>["C3", "A3"])
     end
   end
 
@@ -98,6 +104,14 @@ describe Board do
     end
   end
  
+  describe "#in_check?" do
+    it "returns true if king is in jeopardy" do
+      board.grid["E7"] = Piece.new("queen","white")
+      expect(board.in_check?("black")).to be true
+      expect(board.in_check?("white")).to be false
+    end
+  end
+
 end
 
 describe Piece do
